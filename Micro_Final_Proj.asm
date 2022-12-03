@@ -1,9 +1,3 @@
-    ORIGIN  8000
-
-COLGREEN    EQU 0FFC5H
-COLRED      EQU 0FFC6H
-ROW         EQU 0FFC7H
-
 ;1-down, 4-left, 6-right, 9-up
 ;R0 - SNACK COL
 ;R1 - SNACK ROW
@@ -13,15 +7,22 @@ ROW         EQU 0FFC7H
 
 ;LCD -> TIME 7-SEG -> 점수
 
+    ORIGIN  8000
 
-;========
-; 서브루틴 : INDEX
-; 입력 : ACC
-; 출력 : ACC
-; 기능 : 키 코드의 값을 정의
-;========
+;==========
+;DOT MATRIX 정의
+COLGREEN    EQU 0FFC5H
+COLRED      EQU 0FFC6H
+ROW         EQU 0FFC7H
+;==========
+;==========
+;데이터 입출력 저장
+DATA_OUT       EQU 0FFE0H
+DATA_IN        EQU 0FFF1H
+;==========
 
-;DEFINE FUNCTION KEY
+;==========
+; 기능키
 RWKEY   EQU 10H ; READ AND WRITE KEY
 COMMA   EQU 11H ; COMMA(,)
 PERIOD  EQU 12H ; PERIOD(.)
@@ -31,6 +32,14 @@ CD      EQU 15H ; DECRESE KEY
 INCR    EQU 16H ; INCRESE KEY
 ST      EQU 17H ; SINGLE STEP KEY
 RST     EQU 18H ; RST KEY
+;========
+
+;========
+; 서브루틴 : INDEX
+; 입력 : ACC
+; 출력 : ACC
+; 기능 : 키 코드의 값을 정의
+;========
 
 INDEX:  MOVC A, @A+PC ; 누산기는 1~24의 값을 가진다.
 KEYBASE:    DB  ST      ;SW1,ST             1
